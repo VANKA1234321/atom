@@ -1,15 +1,14 @@
-'use strict'
+'use strict';
 
-const childProcess = require('child_process')
-const path = require('path')
+const childProcess = require('child_process');
 
-const CONFIG = require('../config')
+const CONFIG = require('../config');
 
-module.exports = function () {
-  console.log('Installing script dependencies')
+module.exports = function(ci) {
+  console.log('Installing script dependencies');
   childProcess.execFileSync(
-    CONFIG.getNpmBinPath(),
-    ['--loglevel=error', 'install'],
-    {env: process.env, cwd: CONFIG.scriptRootPath}
-  )
-}
+    CONFIG.getNpmBinPath(ci),
+    ['--loglevel=error', ci ? 'ci' : 'install'],
+    { env: process.env, cwd: CONFIG.scriptRootPath }
+  );
+};
